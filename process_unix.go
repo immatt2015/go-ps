@@ -7,6 +7,7 @@ import (
 	"io"
 	"os"
 	"strconv"
+	"time"
 )
 
 // UnixProcess is an implementation of Process that contains Unix-specific
@@ -19,6 +20,8 @@ type UnixProcess struct {
 	sid   int
 
 	binary string
+
+	start time.Time
 }
 
 func (p *UnixProcess) Pid() int {
@@ -31,6 +34,10 @@ func (p *UnixProcess) PPid() int {
 
 func (p *UnixProcess) Executable() string {
 	return p.binary
+}
+
+func (p *UnixProcess) StartTime() time.Time {
+	return time.Now()
 }
 
 func findProcess(pid int) (Process, error) {

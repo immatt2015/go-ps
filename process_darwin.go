@@ -6,6 +6,7 @@ import (
 	"bytes"
 	"encoding/binary"
 	"syscall"
+	"time"
 	"unsafe"
 )
 
@@ -13,6 +14,8 @@ type DarwinProcess struct {
 	pid    int
 	ppid   int
 	binary string
+
+	start time.Time
 }
 
 func (p *DarwinProcess) Pid() int {
@@ -25,6 +28,10 @@ func (p *DarwinProcess) PPid() int {
 
 func (p *DarwinProcess) Executable() string {
 	return p.binary
+}
+
+func (p *DarwinProcess) StartTime() time.Time {
+	return time.Now()
 }
 
 func findProcess(pid int) (Process, error) {

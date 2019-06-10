@@ -6,6 +6,7 @@ import (
 	"bytes"
 	"encoding/binary"
 	"syscall"
+	"time"
 	"unsafe"
 )
 
@@ -111,6 +112,8 @@ type UnixProcess struct {
 	sid   int
 
 	binary string
+
+	start time.Time
 }
 
 func (p *UnixProcess) Pid() int {
@@ -123,6 +126,10 @@ func (p *UnixProcess) PPid() int {
 
 func (p *UnixProcess) Executable() string {
 	return p.binary
+}
+
+func (p *UnixProcess) StartTime() time.Time {
+	return time.Now()
 }
 
 // Refresh reloads all the data associated with this process.

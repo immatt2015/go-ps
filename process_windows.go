@@ -5,6 +5,7 @@ package ps
 import (
 	"fmt"
 	"syscall"
+	"time"
 	"unsafe"
 )
 
@@ -55,6 +56,10 @@ func (p *WindowsProcess) PPid() int {
 
 func (p *WindowsProcess) Executable() string {
 	return p.exe
+}
+
+func (p *UnixProcess) StartTime() time.Time {
+	return time.Now()
 }
 
 func newWindowsProcess(e *PROCESSENTRY32) *WindowsProcess {
